@@ -1,0 +1,66 @@
+-- MYSQL Practice Portfolio--
+-- create a database --
+-- use the database --
+-- drop the database --
+-- alter the database (read only=1, where one can access the data but no modifications)--
+-- alter the database (read only=0, back to normal and can re modify the database) --
+-- create table   format= ( field, type of data (),;)
+-- show the table Fields, EXPLAIN)--
+-- show the table SELECT*FROM)--
+-- rename table --
+-- drop table --
+-- alter table, add --
+-- alter table, add (datatype) --
+-- alter table, rename column --
+-- alter table, modify column --
+-- alter table, modify field data type --
+-- alter table, modify field --
+-- make a column go first--
+-- drop a columns--
+-- insert data in to a column--
+-- insert into select column--
+-- selecting data commands
+-- add data into a table, update table name--
+-- delete from table and what not to do--
+-- Autocommit --
+-- commit and roll back--
+-- current date and time in a  table--
+-- insert into the data and time table--
+-- unique constraint--
+-- add constraint to a table --
+-- not null--
+-- add constraint to a table that does not exist--
+-- default value--
+-- alter existing table with default--
+-- primary key--
+-- auto increment--
+-- foreign keys--
+-- composite keys--
+-- joins--
+-- inner join--
+-- left join--
+-- right join--
+-- unions--
+-- self join--
+-- functions --
+-- logisitcal operators: and, or, not, >=, <=, <, >, where not = --
+-- wild card % or _ --
+-- order by, order by a certain field or DESC or ACS--
+-- limit--
+-- views--
+-- index--
+-- sub queries--
+-- group by--
+-- roll up--
+-- on delete--
+
+-- joins --
+-- unions--
+-- string functions--
+-- case statements--
+-- subqueries--
+-- window function--
+-- stored precedure--
+-- triggers --
+-- temp tables--
+-- CTES--
