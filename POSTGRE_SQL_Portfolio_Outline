@@ -1,0 +1,896 @@
+PostgreSQL Portfolio, Using Pg Admin on Postgre SQL
+--select 1 column--
+SELECT column name FROM table name
+
+= = select multiple columns = =
+SELECT column name 1, column name 2 FROM table name
+
+= = select all columns = =
+SELECT * FROM table name
+
+= = get unique values on the column, no duplicates = =
+SELECT DISTINCT column name FROM table name
+
+== count, report back rows in a column. After COUNT needs brackets = =
+SELECT COUNT (column name) FROM table name
+SELECT COUNT (*) FROM table name
+SELECT (COUNT column name) FROM table name
+
+== count of distinct values in column = =
+SELECT COUNT (DISTINCT column name) FROM table name
+
+== total number of rows = =
+SELECT COUNT (*) FROM table name
+
+== WHERE with conditional operators ==
+SELECT  column 1, column2
+FROM table name
+WHERE condition;
+=
+>
+<
+>=
+<=
+< >  or !=
+AND 
+NOT
+
+== example of conditional operators==
+
+SELECT column 1, column2
+FROM table name
+WHERE condition1 = thing searching for
+
+== another example of conditional operators==
+
+SELECT column 1, column2
+FROM table name
+WHERE condition1 = thing searching for AND condition1 = thing searching;
+
+== selecting a specific value from a column ==
+SELECT *FROM table name
+WHERE column name = value
+
+== selecting a specific value from a column ==
+SELECT *FROM table name
+WHERE column name1 > value
+AND column name2 >= value
+
+== count of a selection = =
+
+SELECT COUNT (column1 or *) FROM table name
+WHERE column2 > value
+AND column 3>= value
+
+== using OR count of a selection = =
+SELECT *FROM table name
+WHERE column1 = value1 OR column1 = value2
+
+== using NOT ==
+SELECT * FROM table name
+WHERE column != value
+
+==ORDER BY==
+
+SELECT column1, column2
+FROM table
+ORDER BY column1 ASC or DESC
+
+== order by column1 first then column2, usually ascending order ==
+SELECT column1, column2, column3
+FROM table
+ORDER BY column1, column2
+
+
+== order by column1 first then column2, descending and then ascending order ==
+SELECT column1, column2, column3
+FROM table
+ORDER BY column1 DESC, column2 ASC;
+
+== LIMIT, limit rows returned==
+
+SELECT * FROM table
+ORDER BY column1 ASC
+LIMIT number of rows   (this gives a limited number of rows)
+
+SELECT * FROM table
+ORDER BY column1 ASC (or DESC)
+LIMIT number of rows
+
+BETWEEN
+== operator used to match a value against a range of values BETWEEN low and high==
+Value>= low  AND   value<= high
+== values BETWEEN low AND high==
+
+== DATES YYYY-MM-DD ==
+
+DATES BETWEEN date1 AND date2
+
+== Betweens==
+
+SELECT * FROM table
+WHERE column1 BETWEEN figure1 AND figure2;
+
+
+SELECT * FROM table
+WHERE column1 NOT BETWEEN figure1 AND figure2;
+
+SELECT * FROM table
+WHERE column1 BETWEEN ‘date1’ AND ‘date’;
+
+==IN==
+== check to see if value is IN a list of multiple options==
+
+SELECT column FROM table
+WHERE column IN (‘value1’, ‘value2’);
+
+SELECT column FROM table
+WHERE column NOT IN (‘value1’, ‘value2’);
+
+== gives the count of rows including values or NOT==
+SELECT COUNT (*) FROM table
+WHERE column IN (‘value1’, ‘value2’);
+
+SELECT COUNT (*) FROM table
+WHERE column NOT IN (‘value1’, ‘value2’);
+
+== LIKE and ILIKE==
+== wild card %    ‘_ %’   ‘%_%’    ‘%_’
+== like is case sensitive
+
+For example a word beginning with A
+WHERE column LIKE ‘A%’
+
+For example a word ending with A
+WHERE column LIKE ‘%a’
+
+== underscore allows to replace a single character==
+== like is case sensitive==
+
+WHERE column LIKE ‘Billio_’
+WHERE column LIKE ‘word_’
+
+SELECT * FROM table
+WHERE column LIKE ‘_%’;
+
+SELECT COUNT* FROM table
+WHERE column LIKE ‘_%’;
+
+SELECT COUNT* FROM table
+WHERE column1 LIKE ‘_%’ AND column2 LIKE ‘_%’;
+
+== AGGREGATION FUNCTIONS==
+== Use round ( ) for rounding to decimal places = =
+
+AVG ()
+COUNT()
+MAX()
+MIN()
+SUM()
+
+Only in SELECT or HAVING
+EXAMPLES
+
+SELECT* FROM table;
+
+SELECT MIN ( column name) FROM table;
+
+SELECT MAX ( column name) FROM table;
+
+SELECT MAX ( column name), MIN ( column name) FROM table;
+
+==count==
+
+SELECT COUNT ( column name) FROM table;
+
+==AVG==
+
+SELECT AVG ( column name) FROM table;
+
+== AVG, how to round up ==
+SELECT AVG (( column name), decimal places) FROM table;
+
+==SUM==
+SELECT SUM ( column name) FROM table;
+
+
+== GROUP BY==
+== allows us to aggregate (AGG) columns per some category==
+== categorical needed to group by, categorical are not continuous ==
+
+SELECT category column, AGG (data column)         AGG/SUM/AVG/COUNT etc
+FROM table
+GROUP BY category column;
+
+== Group by clause must appear right after a FROM or WHERE statement==
+
+SELECT category column, AGG (data column)
+FROM table
+WHERE category column != ‘data in columns’
+GROUP BY category column
+
+SELECT category column, AGG (data column)
+FROM table
+WHERE category column != ‘data in columns’
+GROUP BY category column
+
+== filter out divisions before WHERE or HAVING ==
+
+== GROUP BY==
+SELECT column FROM table
+GROUP BY column
+ORDER BY column
+
+SELECT column1, SUM(column2) FROM table
+GROUP BY column1
+ORDER BY SUM(column2) DESC           or ASC
+
+SELECT column1, COUNT(column2) FROM table
+GROUP BY column1
+ORDER BY COUNT(column2) DESC       or ASC
+
+SELECT column1, column2, SUM(column3) FROM table
+GROUP BY column1, column 2
+ORDER BY column1
+
+SELECT DATE (column1) FROM table
+GROUP BY DATE (column1)
+
+SELECT DATE (column1), SUM(column2) FROM table
+GROUP BY DATE (column1)
+ORDER BY SUM (column2)   DESC 
+
+==example==
+
+SELECT DATE (sales date), SUM(amount of sales) FROM table
+GROUP BY DATE (sales date)
+ORDER BY SUM (amount of sales)   DESC or ASC
+
+==example==
+SELECT staff_id COUNT (*)
+FROM employment table
+GROUP BY staff_id
+
+==example==
+SELECT rating_column, AVG cost_column
+FROM film table
+GROUP BY rating column
+
+==example==
+SELECT customer_id, SUM (amount)
+FROM payment column
+GROUP BY customer_id column
+ORDER BY SUM(amount column) DESC
+LIMIT 5
+
+
+HAVING
+==HAVING==
+== filter after an aggregation taken place==
+==having allows to aggregate result as a filter along with GROUP BY==
+
+SELECT column1, SUM (column2)
+FROM table
+GROUP BY column1
+HAVING SUM (column2)  >, >, =>, =<, !=  VALUE
+
+AS alias
+==AS==
+
+SELECT column AS alias or new name
+FROM table
+
+== The AS operator gets used /executed at the very end of a query, meaning we cannot use the alias inside a WHERE operator.
+
+SELECT column1, SUM column2
+FROM table
+GROUP BY column1
+
+SELECT column1, SUM column2 AS new name/alias
+FROM table
+GROUP BY column1
+SELECT column1, column2 AS new name
+FROM table
+WHERE column2 > number
+
+
+INNER JOINS
+== Joins combine multiple tables together==
+== Joins help decide how to deal with information only presented in one of the joined tables
+== An INNER JOIN will match results with the set of records that match in both tables==
+
+SELECT *FROM TABLE A
+INNER JOIN TABLE B
+ON TABLEA.col_match = TABLEB.col_match
+
+The same as above
+
+SELECT *FROM TABLE B
+INNER JOIN TABLE A
+ON TABLEA.col_match = TABLEB.col_match
+
+Use this type of formula for inner joins
+
+INNER JOIN
+SELECT*FROM table1
+INNER JOIN table2
+ON table1.mutual column = table2.mutual column
+
+Selects matches from both tables
+Symmetrical
+REMOVE DUPLICATES from inner join
+
+SELECT other column from table1, table2.mutual column. Other column from table 2
+FROM table 1
+INNER JOIN table 2
+ON table1.mutual column = table2.mutual column
+
+INNER JOIN
+
+SELECT column1, table. Column 2 (the mutual column), column 3
+FROM table 1
+INNER JOIN table2
+ON table1. Column 2 (mutual column) = table2. Column2 (mutual column)
+
+ONLY SHOWS RECORDS SHOWN BY BOTH
+
+FULL OUTER JOINS
+
+== deal with values only present in one of the tables being joined==
+==full outer==
+==left outer==
+==right outer==
+
+SELECT * FROM table1
+FULL OUTER JOIN table2
+ON table1.column same as other table = table2.column same as other table
+
+SELECT * FROM table1
+FULL OUTER JOIN table2
+ON table1.mutual column = table2. mutual column
+
+FULL OUTER JOIN with WHERE
+== get rows unique to either table (rows not found in both tables)==
+
+This shows results that are unique to table 1 and table 2 opposite to inner joins
+SELECT * FROM table1
+FULL OUTER JOIN table2
+ON table1.mutual column = table2.mutual column
+WHERE table1.column unique IS NULL
+OR table2.column unique IS NULL
+
+Column unique usually is ID
+
+
+See how many distinct/unique rows there are
+SELECT COUNT (DISTINCT column)
+FROM table
+
+
+LEFT OUTER JOIN
+Set of records in the left table if there is no match with the right table the results are null
+
+SELECT * FROM table1
+LEFT OUTER JOIN table2
+ON table1.mutual matching column = table2.mutual matching column
+
+THE ORDER OF THE TABLE MATTERS
+Rows found in table 1 but not in table 2
+
+SELECT *FROM table1
+LEFT OUTER JOIN table2
+ON table1.mutual column = table2.mutual column
+WHERE table2.unique IS MULL
+Unique column = column in question, usually ID
+
+
+RIGHT OUTER JOIN
+
+Same as left join but opposite
+
+SELECT * FROM Table1
+RIGHT OUTER JOIN table2
+ON table1.matching column = table2.matching column
+
+SELECT * FROM Table1
+RIGHT OUTER JOIN table2
+ON table1.matching column = table2.matching column
+WHERE table1.unique column IS NULL
+
+UNIONS
+
+==unions combine the results of 2 or more SELECT statements==
+==concatenate 2 results together==
+
+SELECT columns FROM table1
+UNION
+SELECT columns FROM table2
+
+SELECT columns FROM table1
+UNION
+SELECT columns FROM table2
+ORDER BY column;
+
+
+Timestamps and Extract
+
+Displaying current information
+Report back time and date information
+Time- contains only time
+Date – contains only date
+Timestamp – contains date and time
+Time stamptz – contains date, time and timezone
+
+TIMEZONE
+NOW
+TIME OF DAY
+CURRENT_TIME
+CURRENT_DATE
+
+
+SHOW ALL (shows parameters)
+SELECT NOW ( ) =  shows time information
+SELECT TIMEOFDAY ( ) = shows time of day in string form
+SELECT CURRENT TIME = current time zone
+SELECT CURRENT_DATE=
+
+
+TIMESTAMPS AND EXTRAC PART 2
+EXTRACT ( )
+AGE ( )
+TO_CHAR ( )
+
+EXTRACT ( )
+-	YEAR
+-	MONTH
+-	DAY
+-	WEEK
+-	QUARTER
+
+EXTRACT (YEAR FROM column with date)
+
+AGE (date column)
+13 years 1 month 5 days  01:34:13.003423     hours: min: seconds
+
+TO_CHAR(date column, ‘mm-dd-yyyy’)
+
+SELECT EXTRACT (YEAR FROM column) AS code/alias
+FROM table
+
+SELECT AGE (column) FROM table
+
+SELECT TO_CHAR (column, ‘month yyyy’)        choose how you want the date on table
+
+Timestamps and Extract Challenge Tasks
+
+SELECT
+DISTINCT (TO_CHAR(column, ‘MONTH’))      YEAR, QUARTER etc instead of MONTH
+FROM table
+
+MATHEMATICAL FUNCTIONS
+
+SELECT*FROM table
+
+SELECT column1/column2 FROM table
+SELECT ROUND(column1/column2),2) FROM table
+
+SELECT ROUND (column1/column2,2) *100 AS alias
+FROM TABLE
+
+STRING FUNCTIONS & OPERATIONS
+
+Google this to see the list of functions ‘string function and operators’
+
+SELECT LENGTH (column) FROM table
+This shows length of words in that column
+
+SELECT column1 ||’ space’|| column2 FROM table
+This does concatenates
+
+SELECT column1 ||’ space’|| column2 AS alias FROM table
+This does concatenates with alius
+
+SELECT UPPER column1 ||’ space’|| column2 AS alias FROM table
+This does concatenates with alius in capital letters
+
+Example of creating an email
+
+SELECT
+LOWER (LEFT (FIRST_NAME,1)) ||lower (LAST_NAME) ||’@gmail.com’
+AS EMAIL
+FROM table
+
+SUBQUERY
+
+Complex queries creating a query on results of another query
+
+SELECT column FROM table
+SELECT AVG column FROM  table
+
+SELECT column1, column2
+FROM table
+WHERE column >  (SELECT AVG(column2)
+FROM table
+EXIST
+
+SELECT column
+FROM table
+WHERE EXISTS
+(SELECT column FROM table WHERE condition)
+
+IN
+SELECT column1, column2
+FROM table1
+WHERE column1 IN
+(SELECT column1 FROM table2)
+
+IN Example
+SELECT column1, column2
+FROM table1
+WHERE column1 IN
+(SELECT _.column1 FROM table2
+INNER JOIN _ ON_.column3
+= table2.column3
+WHERE column4 BETWEEN _ AND_ ORDER BY column2)
+
+EXISTS
+
+SELECTS column1, column2
+FROM table1 AS alius1
+WHERE EXISTS
+(SELECT * FROM table2 AS alius2
+WHERE alius2.column3 = alius1.column3
+AND column 4> value)
+
+You can get a NOT by using NOT EXISTS
+
+
+SELF JOINS
+
+-query in which table is joined to itself
+- comparing values in a column of rows within the same table
+
+SELECT tableA.col, tableB.col
+FROM table AS table A
+JOIN table AS table B ON
+tableA.same_col = tableB.other_col
+
+example
+
+SELECT emp.name, report.name AS rep
+FROM employees AS emp
+JOIN employees AS report ON
+Emp.emp_id = report.report_id
+
+Example
+
+SELECT f1.title, f2.title, f1 length
+FROM film AS f1
+INNER JOIN film AS f2 ON
+F1.film_id != f2.film_id
+AND f1.length = f2.length
+
+
+CREATING DATABASES AND TABLES
+DATA TYPES
+Boolean – true or false
+Character – char, varchar , text
+Numeric – integer, floating-point number
+Temporal – date, time, timestamp, interval
+
+
+
+PRIMARY  and FOREIGN KEYS
+Primary key is a column or a column or a group of column used to identify a row uniquely in a table
+
+Not null, means must be entry
+
+Allows one to know what columns to join table together
+
+A foreign key is a field or a group of fields in a table that uniquely identifies a row in another table.
+A foreign key is defined in a table that references to the primary key of the other table
+Table that contains foreign key is the referencing table
+
+A table can have multiple foreign keys depending on its relationship with other tables
+
+PK in a column means primary key
+
+Foreign keys are constraints
+
+
+CONSTRAINTS
+Rules enforced on data columns on table
+
+NOT NULL is a constraint
+UNIQUE  is a constraint, all values in a column are different
+PRIMARY KEY
+FOREIGN KEY
+CHECK   - ensure all values satisfy
+EXCLUSION
+REFERENCES
+
+
+CREATE TABLE
+
+CREATE DATABASE (use side bar to do so)
+CREATE TABLE table_name(
+Column_name_1 DATA TYPE, CONSTRAINT,
+Column_name_2 DATA TYPE, CONSTRAINT,
+)
+
+INSERT INTO TABLE
+
+SELECT* FROM table_name
+INSERT INTO table_name (column1, column2, column3, column4)
+VALUES
+(    ,    ,     ,    )
+
+
+
+UPDATE
+-allows for changes in columns in table
+UPDATE table
+SET      column1 = value1
+	Column2 = value 2
+
+WHERE condition;
+
+
+Examples
+-allows for changes in columns in table
+UPDATE account
+SET last_login = CURRENT_TIME STAMP
+WHERE last_login is NULL
+
+Examples
+UPDATE account
+SET last_login =  created on
+
+Updated joins
+
+UPDATE Table A
+SET original_col = tableB. New_col
+FROM Table B
+WHERE tableA.id = TableB.id
+
+Return affected rows
+UPDATE account
+SET last_login = created_on
+RETURNING account_id, last_login
+
+DELETE
+
+DELETE FROM table
+WHERE row_label = value
+
+DELETE FROM tableA
+USING tableB
+WHERE tableA.id = tableB.id
+
+DELETE FROM table
+
+ALTER TABLE
+ALTER TABLE table_name 
+ADD COLUMN  new_column TYPE
+
+ALTER TABLE table_name
+DROP COLUMN column_name
+
+ALTER TABLE table_name 
+ALTER COLUMN column_name
+DROP DEFAULT
+
+DROP
+SET NOT NULL
+SET DEFAULT VALUE
+DROP NOT NULL
+ADD CONSTRAINT constratin_name
+
+DROP TABLE
+
+ALTER TABLE table_name
+DROP COLUMN column_name CASCADE
+
+ALTER TABLE table_name
+DROP COLUMN column_1
+DROP COLUMN column_2
+
+CHECK CONSTRAINT
+
+Example
+
+CREATE TABLE example(
+Ex_id SERIAL PRIMARY KEY
+Age SMALL INT CHECK (age>21)
+Parent_age SMALL INT CHECK (
+parent_age> age)
+):
+
+Example
+CREATE TABLE employees(
+Emp_id SERIAL PRIMARY KEY,
+First_name VARCHAR (50) NOT NULL,
+Last_name VARCHAR (50) NOT NULL,
+Birthdate DATE CHECK (birthday> ‘1900,01,01’),
+Hire_date DATE CHECK (hiredate>birthdate),
+Salary INTEGER CHECK (salary>0),
+
+Then you add the values to the SQL , see if they are in the constraint.
+
+Conditional Expression and Procedures
+
+Case statement
+-	General CASE
+-	CASE expression
+
+CASE
+WHEN condition1 THEN result1
+WHEN condition2 THEN result 2
+ELSE some_other_result
+END
+
+SELECT*FROM test;
+SELECT a,
+CASE WHEN a = 1 THEN ‘one’
+           WHEN a= 2 THEN ‘two’
+ELSE ‘other’
+END
+FROM test;
+
+CASE expression
+First evaluates an expression then compares the result with each value in the WHEN clauses sequentially
+
+CASE expression
+WHEN value1 THEN result 1
+WHEN value2 THEN result 2
+ELSE come_other_result
+END
+
+Example
+SELECT a
+CASE a WHEN 1 THEN ‘one’
+WHEN 2 THEN ‘two’
+ELSE ‘other’
+END
+FROM test;
+
+
+CASE Example
+SELECT customer_id.
+CASE
+WHEN (customer_id <= 100) THEN ‘Premium’
+WHEN(customer_id between 100 AND 200) THEN ‘Plus’
+ELSE ‘Normal’
+END AS customer_class
+FROM customer
+
+
+CASE Expression
+SELECT customer_id.
+CASE customer_id.
+WHEN 2 THEN ‘winner’
+WHEN 5 THEN ‘second place’
+ELSE ‘Normal’
+END AS raffle_results
+FROM customer
+
+
+Case expression example
+
+SELECT * FROM film
+SELECT rental_rate FROM film
+SELECT rental_rate
+CASE rental_rate
+WHEN 0.99 THEN 1
+ELSE 0
+END
+FROM film
+
+COALESCE
+-	Coalesce function returns first arguments that is not null. If all arguments are null the COALESCE function will return null
+
+COALESCE(ARG-1, ARG-2…….ARF-N)
+
+SELECT COALESCE (1,2)
+SELECT COALESCE (NULL,2,3)
+2
+
+Useful when querying a table that contains null values and substituting it with another value
+
+
+Example: what is the final price
+
+SELECT item, (price_discount) AS final
+FROM table
+Doesn’t work for item B
+
+So
+
+SELECT item (price-COALESCE (discount, 0))
+AS final FROM table
+
+No need to make changes to table
+
+CAST
+Convert one data type into another
+Not every data type can be cost into another data type
+
+Syntax
+SELECT CAST (‘5’ AS INTEGER)
+
+PostgreSQL CAST operator
+SELECT CAST ‘5’ :: INTEGER
+
+Use this in a SELECT query with a column name instead of a single instance
+
+SELECT CAST (date AS TIMESTAMP) FROM table
+
+SELECT CAST (‘5’ AS INTEGER) AS new int
+
+SELECT ‘5’:: INTEGER
+
+SELECT CAST (inventory_id AS VARCHAR) FROM table
+
+SELECT CHAR_LENGTH (CAST(inventory-id AS VARCHAR) FROM table
+
+
+
+NULL IF
+
+NULL IF (arg1, ar2)
+Returns NULL if both inputs equal
+
+Postgre > create > new database
+
+Gives Ratio Example
+
+SELECT (
+SUM (CASE WHEN department = ‘A’ THEN1
+ELSE 0 END)/
+SUM (CASE WHEN department = ‘B’ THEN1
+ELSE 0 END)
+As department ratio
+
+DELETE FROM depts
+WHERE department = ‘B’
+SELECT*FROM  depts
+
+NULL IF
+SELECT (
+SUM (CASE WHEN department=’A’ THEN 1 ELSE 0 END)/
+NULLIF (SUM(CASE WHEN department = ‘B’ THEN 1
+ELSE 0 END),0)
+)
+
+AS department ratio
+FROM depts
+
+Check if something is equal to zero
+
+
+VIEWS
+View to quickly see the query
+CREATE VIEW customer_info AS
+
+SELECT first_name, last_name, address FROM customer
+INNER JOIN address
+ON customer.address_id = address.address_id
+
+SELECT* FROM customer_info
+Gives same output as the join
+
+CREATE or REPLACE VIEW customer_info AS
+NEW JOIN  (but new version)
+
+DROP VIEW IF EXISTS customer_info
+
+ALTER VIEW customer_info RENAME TO customer_info
+
+IMPORT CSV files
+Tables> simple> import/export
+
+Select import or export
+Select columns
+Select file name
+Select file location 
+Format csv
